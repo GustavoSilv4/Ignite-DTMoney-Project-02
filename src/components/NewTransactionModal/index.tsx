@@ -4,7 +4,6 @@ import { CloseButton, Content, Overlay, TransactionType, TransactionTypeButton }
 import * as z from 'zod'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { api } from '../../lib/axios'
 import { useContext } from 'react'
 import { TransactionsContext } from '../../contexts/TrasactionsContext'
 
@@ -58,14 +57,7 @@ export function NewTransactionModal() {
 
         <form onSubmit={handleSubmit(handleCreateNewTransaction)}>
           <input type="text" placeholder="Descricao" required {...register('description')} />
-          <input
-            type="number"
-            placeholder="Preco"
-            min={0}
-            step="0.01"
-            required
-            {...register('price', { valueAsNumber: true })}
-          />
+          <input type="number" placeholder="Preco" min={0} step="0.01" required {...register('price', { valueAsNumber: true })} />
           {/* valueAsNumber: true - Transaforma o tipo do value para number */}
           <input type="text" placeholder="Categoria" required {...register('category')} />
 

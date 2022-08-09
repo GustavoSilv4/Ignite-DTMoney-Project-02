@@ -1,4 +1,9 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
+import {
+  createContext,
+  ReactNode,
+  useEffect,
+  useState,
+} from 'react'
 import { api } from '../lib/axios'
 
 interface Transaction {
@@ -20,17 +25,25 @@ interface CreateTransactionProps {
 interface TransactionContextType {
   transactions: Transaction[]
   fetchTransactions: (query?: string) => Promise<void>
-  createTransaction: (data: CreateTransactionProps) => Promise<void>
+  createTransaction: (
+    data: CreateTransactionProps
+  ) => Promise<void>
 }
 
-export const TransactionsContext = createContext({} as TransactionContextType)
+export const TransactionsContext = createContext(
+  {} as TransactionContextType
+)
 
 interface TransactionsProviderProps {
   children: ReactNode
 }
 
-export function TransactionProvider({ children }: TransactionsProviderProps) {
-  const [transactions, setTransactions] = useState<Transaction[]>([])
+export function TransactionProvider({
+  children,
+}: TransactionsProviderProps) {
+  const [transactions, setTransactions] = useState<
+    Transaction[]
+  >([])
 
   async function fetchTransactions(query?: string) {
     const response = await api.get('/transactions', {
@@ -44,7 +57,9 @@ export function TransactionProvider({ children }: TransactionsProviderProps) {
     setTransactions(response.data)
   }
 
-  async function createTransaction(data: CreateTransactionProps) {
+  async function createTransaction(
+    data: CreateTransactionProps
+  ) {
     const { category, description, price, type } = data
 
     const response = await api.post('/transactions', {
@@ -63,7 +78,12 @@ export function TransactionProvider({ children }: TransactionsProviderProps) {
   }, [])
 
   return (
-    <TransactionsContext.Provider value={{ transactions, fetchTransactions, createTransaction }}>
+    <TransactionsContext.Provider
+      value={{
+        transactions,
+        fetchTransactions,
+        createTransaction,
+      }}>
       {children}
     </TransactionsContext.Provider>
   )
