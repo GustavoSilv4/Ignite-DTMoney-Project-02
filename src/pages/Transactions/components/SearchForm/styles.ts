@@ -9,7 +9,7 @@ export const SearchFormContainer = styled.form`
     border-radius: 6px;
     border: 0;
     background-color: ${(props) => props.theme['gray-900']};
-    color: ${(props) => props.theme['green-300']};
+    color: ${(props) => props.theme['gray-300']};
     padding: 1rem;
 
     &::placeholder {
@@ -29,13 +29,19 @@ export const SearchFormContainer = styled.form`
     color: ${(props) => props.theme['green-300']};
     font-weight: bold;
     border-radius: 6px;
+    cursor: pointer;
 
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 
-    &:hover {
+    &:not(:disabled):hover {
       background: ${(props) => props.theme['green-500']};
       border: 1px solid ${(props) => props.theme['green-500']};
       color: ${(props) => props.theme['white']};
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
   }
 `
